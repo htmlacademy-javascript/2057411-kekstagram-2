@@ -25,3 +25,24 @@ const extractNumbers = (string) => {
     }
     return result === ''? NaN : Number(result);
 };
+
+function meetingFits(workStart, workEnd, meetingStart, duration) {
+    
+  const toMinutes = time => {
+    const [h, m] = time.split(':').map(Number);
+    return h * 60 + m;
+  };
+
+  const startWork = toMinutes(workStart);
+  const endWork = toMinutes(workEnd);
+  const startMeeting = toMinutes(meetingStart);
+  const endMeeting = startMeeting + duration;
+
+  return startMeeting >= startWork && endMeeting <= endWork;
+}
+
+console.log(meetingFits('08:00', '17:30', '14:00', 90)); 
+console.log(meetingFits('8:0', '10:0', '8:0', 120));     
+console.log(meetingFits('08:00', '14:30', '14:00', 90)); 
+console.log(meetingFits('14:00', '17:30', '08:0', 90));  
+console.log(meetingFits('8:00', '17:30', '08:00', 900)); 
