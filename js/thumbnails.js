@@ -1,5 +1,5 @@
 import { generatePhotos } from './data.js';
-import { openBigPicture } from './bigPicture.js';
+import { openBigPicture } from './big-picture.js';
 
 const photos = generatePhotos();
 

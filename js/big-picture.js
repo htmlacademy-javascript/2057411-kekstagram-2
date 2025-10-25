@@ -23,25 +23,31 @@ function openBigPicture (photoData) {
    commentTotalCount.textContent = photoData.comments.length;
    commentsList.innerHTML = '';
 
-   photoData.comments.forEach(comment=> {
-    const li = document.createElement('li');
-    li.className = 'social__comment';
+   const commentTemplate = document.createElement('li');
+   commentTemplate.className = 'social__comment';
 
-    const img = document.createElement('img');
-    img.className = 'social__picture';
+   const commentImg = document.createElement('img');
+   commentImg.className = 'social__picture';
+   commentImg.width = 35;
+   commentImg.height = 35;
+
+   const commentText = document.createElement('p');
+   commentText.className = 'social__text';
+
+   commentTemplate.appendChild(commentImg);
+   commentTemplate.appendChild(commentText);
+
+   photoData.comments.forEach(comment => {
+    const li = commentTemplate.cloneNode(true); 
+    const img = li.querySelector('.social__picture');
+    const p = li.querySelector('.social__text');
+
     img.src = comment.avatar;
     img.alt = comment.name;
-    img.width = 35;
-    img.height = 35;
-
-    const p = document.createElement('p');
-    p.className = 'social__text';
     p.textContent = comment.message;
 
-    li.appendChild(img);
-    li.appendChild(p);
     commentsList.appendChild(li);
-   });
+});
 
    description.textContent = photoData.description;
 
