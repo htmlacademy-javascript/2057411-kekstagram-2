@@ -56,6 +56,8 @@ function openBigPicture (photoData) {
 
    bigPicture.classList.remove('hidden');
    document.body.classList.add('modal-open');
+
+   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 closeButton.addEventListener ('click',closeBigPicture);
