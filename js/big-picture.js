@@ -11,12 +11,15 @@ const commentCountContainer = bigPicture.querySelector('.social__comment-count')
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const closeButton = document.querySelector('.big-picture__cancel');
 
+const socialComment = bigPicture.querySelector('.social__comment');
+
 function closeBigPicture () {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
 }; 
 
 function openBigPicture (photoData) {
+  const commentsFragment = document.createDocumentFragment();
    bigPictureImg.src = photoData.url;
    likesCount.textContent = photoData.likes; 
    commentsShownCount.textContent = photoData.comments.length;
@@ -37,17 +40,14 @@ function openBigPicture (photoData) {
    commentTemplate.appendChild(commentImg);
    commentTemplate.appendChild(commentText);
 
-   photoData.comments.forEach(comment => {
-    const li = commentTemplate.cloneNode(true); 
-    const img = li.querySelector('.social__picture');
-    const p = li.querySelector('.social__text');
-
-    img.src = comment.avatar;
-    img.alt = comment.name;
-    p.textContent = comment.message;
-
-    commentsList.appendChild(li);
+   photoData.comments.forEach((comment) => {
+    const commentTemplate = socialComment.cloneNode(true);
+    commentTemplate.querySelector('.social__picture').src = comment.avatar;
+    commentTemplate.querySelector('.social__picture').alt = comment.name;
+    commentTemplate.querySelector('.social__text').textContent = comment.message;
+    commentsFragment.appendChild(commentTemplate);
 });
+   commentsList.appendChild(commentsFragment);
 
    description.textContent = photoData.description;
 
