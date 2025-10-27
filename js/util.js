@@ -10,4 +10,4 @@ export const getRandomArrayElement = (array) =>
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {isEscapeKey};
+export { isEscapeKey };
