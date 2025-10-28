@@ -1,4 +1,3 @@
-import './thumbnails.js'; 
+import './thumbnails.js';
 
 console.log(photos);
-

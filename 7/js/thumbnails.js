@@ -19,8 +19,8 @@ photos.forEach((photo) => {
   pictureElement.querySelector('.picture__comments').textContent = photo.comments.length;
 
   pictureElement.addEventListener('click', (evt) => {
-    evt.preventDefault(); 
-    openBigPicture(photo); 
+    evt.preventDefault();
+    openBigPicture(photo);
 
   });
 
