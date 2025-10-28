@@ -1,6 +1,3 @@
-import { generatePhotos } from './data.js';
-import './thumbnails.js'; 
-
-const photos = generatePhotos();
+import './thumbnails.js';
 
 console.log(photos);
