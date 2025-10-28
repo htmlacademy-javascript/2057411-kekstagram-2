@@ -39,7 +39,6 @@ function openBigPicture(photoData) {
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
-  console.log('openBigPicture called', photoData);
 }
 
 closeButton.addEventListener('click', closeBigPicture);
