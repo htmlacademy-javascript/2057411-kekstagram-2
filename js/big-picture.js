@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { clearComments, renderComments } from './render-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = document.querySelector('.big-picture__img img');
@@ -26,26 +27,13 @@ const onDocumentKeydown = (evt) => {
 };
 
 function openBigPicture(photoData) {
-  const commentsFragment = document.createDocumentFragment();
   bigPictureImg.src = photoData.url;
   likesCount.textContent = photoData.likes;
   commentsShownCount.textContent = photoData.comments.length;
   commentTotalCount.textContent = photoData.comments.length;
-  commentsList.innerHTML = '';
-
-  photoData.comments.forEach((comment) => {
-    const commentTemplate = socialComment.cloneNode(true);
-    commentTemplate.querySelector('.social__picture').src = comment.avatar;
-    commentTemplate.querySelector('.social__picture').alt = comment.name;
-    commentTemplate.querySelector('.social__text').textContent = comment.message;
-    commentsFragment.appendChild(commentTemplate);
-  });
-  commentsList.appendChild(commentsFragment);
-
   description.textContent = photoData.description;
 
-  commentCountContainer.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  renderComments(photoData.comments);
 
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
