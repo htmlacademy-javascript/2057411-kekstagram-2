@@ -6,13 +6,8 @@ const bigPictureImg = document.querySelector('.big-picture__img img');
 const likesCount = document.querySelector('.likes-count');
 const commentsShownCount = document.querySelector('.social__comment-shown-count');
 const commentTotalCount = document.querySelector('.social__comment-total-count');
-const commentsList = document.querySelector('.social__comments');
 const description = document.querySelector('.social__caption');
-const commentCountContainer = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
 const closeButton = document.querySelector('.big-picture__cancel');
-
-const socialComment = bigPicture.querySelector('.social__comment');
 
 function closeBigPicture() {
   bigPicture.classList.add('hidden');
