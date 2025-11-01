@@ -1,3 +1,4 @@
 import './thumbnails.js';
+import { initUploadModal } from './form.js';
 
-console.log(photos);
+initUploadModal();
