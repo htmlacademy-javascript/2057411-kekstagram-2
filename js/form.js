@@ -1,5 +1,9 @@
 import { isEscapeKey } from './util.js';
 
+const MAX_HASHTAGS = 5;
+const MAX_SYMBOLS = 20;
+const MAX_COMMENT_LENGTH = 140;
+
 const pageBody = document.querySelector('body');
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadFileControl = uploadForm.querySelector('#upload-file');
@@ -9,11 +13,7 @@ const photoEditorResetButton = photoEditorForm.querySelector('#upload-cancel');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
 
-const MAX_HASHTAGS = 5;
-const MAX_SYMBOLS = 20;
-const MAX_COMMENT_LENGTH = 140;
 let errorMessage = '';
-
 const error = () => errorMessage;
 
 const validateHashtags = (value) => {
@@ -88,7 +88,7 @@ function closePhotoEditor() {
   photoEditorForm.classList.add('hidden');
   pageBody.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  document.removeEventListener('click', onPhotoEditorResetButtonClick);
+  photoEditorResetButton.removeEventListener('click', onPhotoEditorResetButtonClick);
   uploadFileControl.value = '';
 }
 
@@ -96,30 +96,26 @@ export const initUploadModal = () => {
   uploadFileControl.addEventListener('change', () => {
     photoEditorForm.classList.remove('hidden');
     pageBody.classList.add('modal-open');
-    photoEditorResetButton.addEventListener('click', onPhotoEditorResetButtonClick)
+    photoEditorResetButton.addEventListener('click', onPhotoEditorResetButtonClick);
     document.addEventListener('keydown', onDocumentKeydown);
   });
 };
 
-const onHashtagInput = () => {
-  isHashtagsValid(hashtagInput.value);
-}
-
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
-    hashtagInput.value = hashtagInput.value.trim().replaceAll(/\s+/g, '');
+    hashtagInput.value = hashtagInput.value.trim().replace(/\s+/g, ' ');
     uploadForm.submit();
   }
 };
 
 const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__form',
-  errorClass: 'img-upload__field-wrapper--error',
+  classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error',
 });
 
 pristine.addValidator(hashtagInput, validateHashtags, error, 2, false);
 pristine.addValidator(commentInput, validateComment, () => `Максимальная длина комментария ${MAX_COMMENT_LENGTH} символов`, 2, false);
-hashtagInput.addEventListener('input', onHashtagInput);
+
 uploadForm.addEventListener('submit', onFormSubmit);
