@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { onSmallerClick, onBiggerClick, onEffectChange } from './image-effects.js';
 
 const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
@@ -79,6 +80,7 @@ const onDocumentKeydown = (evt) => {
     if (document.activeElement === hashtagInput || document.activeElement === commentInput) {
       evt.stopPropagation();
     } else {
+      uploadForm.reset();
       closePhotoEditor();
     }
   }
@@ -96,10 +98,25 @@ export const initUploadModal = () => {
   uploadFileControl.addEventListener('change', () => {
     photoEditorForm.classList.remove('hidden');
     pageBody.classList.add('modal-open');
+
+    const smaller = document.querySelector('.scale__control--smaller');
+    const bigger = document.querySelector('.scale__control--bigger');
+    const effectsList = document.querySelector('.effects__list');
+
+    smaller.addEventListener('click', onSmallerClick);
+    bigger.addEventListener('click', onBiggerClick);
+    effectsList.addEventListener('change', onEffectChange);
+
     photoEditorResetButton.addEventListener('click', onPhotoEditorResetButtonClick);
     document.addEventListener('keydown', onDocumentKeydown);
   });
 };
+
+const pristine = new Pristine(uploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error',
+});
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
@@ -109,13 +126,6 @@ const onFormSubmit = (evt) => {
   }
 };
 
-const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error',
-});
-
 pristine.addValidator(hashtagInput, validateHashtags, error, 2, false);
 pristine.addValidator(commentInput, validateComment, () => `Максимальная длина комментария ${MAX_COMMENT_LENGTH} символов`, 2, false);
-
 uploadForm.addEventListener('submit', onFormSubmit);
