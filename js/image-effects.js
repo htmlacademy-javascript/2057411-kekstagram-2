@@ -38,7 +38,7 @@ scaleSmallerBtn.addEventListener('click', onSmallerClick);
 scaleBiggerBtn.addEventListener('click', onBiggerClick);
 
 noUiSlider.create(slider, {
-  start: 0,
+  start: 1,
   connect: 'lower',
   range: {
     'min': 0,
@@ -77,7 +77,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 1,
         },
-        start: 0,
+        start: 1,
         step: 0.1,
       });
       slider.noUiSlider.on('update', () => {
@@ -90,7 +90,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 1,
         },
-        start: 0,
+        start: 1,
         step: 0.1,
       });
       slider.noUiSlider.on('update', () => {
@@ -103,7 +103,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 100,
         },
-        start: 0,
+        start: 100,
         step: 1,
       });
       slider.noUiSlider.on('update', () => {
@@ -116,7 +116,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 3,
         },
-        start: 0,
+        start: 3,
         step: 0.1,
       });
       slider.noUiSlider.on('update', () => {
@@ -129,7 +129,7 @@ const onEffectChange = (evt) => {
           min: 1,
           max: 3,
         },
-        start: 0,
+        start: 3,
         step: 0.1,
       });
       slider.noUiSlider.on('update', () => {
