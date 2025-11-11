@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { onSmallerClick, onBiggerClick, onEffectChange } from './image-effects.js';
+import { sendData } from './api.js';
+import { showSuccessMessage, showErrorMessage } from './messages.js';
 
 const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
@@ -10,6 +12,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 const uploadFileControl = uploadForm.querySelector('#upload-file');
 const photoEditorForm = uploadForm.querySelector('.img-upload__overlay');
 const photoEditorResetButton = photoEditorForm.querySelector('#upload-cancel');
+const submitButton = uploadForm.querySelector('#upload-submit');
 
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
@@ -120,10 +123,25 @@ const pristine = new Pristine(uploadForm, {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  if (pristine.validate()) {
-    hashtagInput.value = hashtagInput.value.trim().replace(/\s+/g, ' ');
-    uploadForm.submit();
+  if (!pristine.validate()) {
+    return;
   }
+  hashtagInput.value = hashtagInput.value.trim().replace(/\s+/g, ' ');
+  const formData = new FormData(uploadForm);
+  submitButton.disabled = true;
+
+  sendData(formData)
+    .then(() => {
+      uploadForm.reset();
+      closePhotoEditor();
+      showSuccessMessage();
+    })
+    .catch(() => {
+      showErrorMessage();
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+    });
 };
 
 pristine.addValidator(hashtagInput, validateHashtags, error, 2, false);

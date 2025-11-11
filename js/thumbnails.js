@@ -1,14 +1,10 @@
-import { generatePhotos } from './data.js';
+import { getData } from './api.js';
 import { openBigPicture } from './big-picture.js';
-
-const photos = generatePhotos();
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
-const fragment = document.createDocumentFragment();
-
-photos.forEach((photo) => {
+const createThumbnail = (photo) => {
   const pictureElement = template.cloneNode(true);
 
   const image = pictureElement.querySelector('.picture__img');
@@ -24,7 +20,27 @@ photos.forEach((photo) => {
 
   });
 
-  fragment.appendChild(pictureElement);
-});
+  return pictureElement;
+};
 
-container.appendChild(fragment);
+const renderThumbnails = (photos) => {
+  const fragment = document.createDocumentFragment();
+  photos.forEach((photo) => fragment.appendChild(createThumbnail(photo)));
+  container.appendChild(fragment);
+};
+
+const showDataErrorMessage = () => {
+  const errorTemplate = document.querySelector('#data-error').content.cloneNode(true);
+  document.body.appendChild(errorTemplate);
+
+  setTimeout(() => {
+    const message = document.querySelector('.data-error');
+    if (message) {
+      message.remove();
+    }
+  }, 5000);
+};
+
+getData()
+  .then((photos) => renderThumbnails(photos))
+  .catch(() => showDataErrorMessage());
