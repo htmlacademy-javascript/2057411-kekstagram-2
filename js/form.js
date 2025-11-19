@@ -83,13 +83,13 @@ const onDocumentKeydown = (evt) => {
     if (document.activeElement === hashtagInput || document.activeElement === commentInput) {
       evt.stopPropagation();
     } else {
-      uploadForm.reset();
       closePhotoEditor();
     }
   }
 };
 
-function closePhotoEditor() {
+export function closePhotoEditor() {
+  uploadForm.reset();
   photoEditorForm.classList.add('hidden');
   pageBody.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -132,7 +132,6 @@ const onFormSubmit = (evt) => {
 
   sendData(formData)
     .then(() => {
-      uploadForm.reset();
       closePhotoEditor();
       showSuccessMessage();
     })

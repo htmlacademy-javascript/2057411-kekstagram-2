@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { closePhotoEditor } from './form.js';
 
 const body = document.body;
 
@@ -9,6 +10,7 @@ const showSuccessMessage = () => {
   const close = () => {
     successElement.remove();
     document.removeEventListener('keydown', onEsc);
+    closePhotoEditor();
   };
 
   const onEsc = (evt) => {
@@ -34,6 +36,7 @@ const showErrorMessage = () => {
   const close = () => {
     errorElement.remove();
     document.removeEventListener('keydown', onEsc);
+    closePhotoEditor();
   };
 
   const onEsc = (evt) => {

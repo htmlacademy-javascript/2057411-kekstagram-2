@@ -10,7 +10,7 @@ const METHOD = {
   POST: 'POST',
 };
 
-const ERRORTEXT = {
+const ERROR_TEXT = {
   [METHOD.GET]: 'Не удалось загрузить данные. Попробуйте ещё раз',
   [METHOD.POST]: 'Не удалось отправить данные формы',
 };
@@ -18,7 +18,7 @@ const ERRORTEXT = {
 const load = (route, method = METHOD.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, { method, body })
     .then((response) =>
-      response.ok ? response.json() : Promise.reject(ERRORTEXT[method])
+      response.ok ? response.json() : Promise.reject(ERROR_TEXT[method])
     );
 
 const getData = () => load(ROUTE.GET_DATA);
@@ -26,4 +26,3 @@ const getData = () => load(ROUTE.GET_DATA);
 const sendData = (body) => load(ROUTE.SEND_DATA, METHOD.POST, body);
 
 export { getData, sendData };
-
