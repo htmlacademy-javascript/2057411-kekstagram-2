@@ -4,6 +4,8 @@ import { openBigPicture } from './big-picture.js';
 const template = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
+const ERROR_MESSAGE_TIMEOUT = 5000;
+
 const createThumbnail = (photo) => {
   const pictureElement = template.cloneNode(true);
 
@@ -23,13 +25,13 @@ const createThumbnail = (photo) => {
   return pictureElement;
 };
 
-const renderThumbnails = (photos) => {
+export const renderThumbnails = (photos) => {
   const fragment = document.createDocumentFragment();
   photos.forEach((photo) => fragment.appendChild(createThumbnail(photo)));
   container.appendChild(fragment);
 };
 
-const showDataErrorMessage = () => {
+export const showDataErrorMessage = () => {
   const errorTemplate = document.querySelector('#data-error').content.cloneNode(true);
   document.body.appendChild(errorTemplate);
 
@@ -38,7 +40,7 @@ const showDataErrorMessage = () => {
     if (message) {
       message.remove();
     }
-  }, 5000);
+  }, ERROR_MESSAGE_TIMEOUT);
 };
 
 getData()
