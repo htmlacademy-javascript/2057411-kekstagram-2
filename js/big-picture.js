@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { clearComments, renderComments } from './render-comments.js';
+import { renderComments } from './render-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = document.querySelector('.big-picture__img img');

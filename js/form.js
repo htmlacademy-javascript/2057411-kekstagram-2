@@ -17,6 +17,12 @@ const submitButton = uploadForm.querySelector('#upload-submit');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
 
+const pristine = new Pristine(uploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error',
+});
+
 let errorMessage = '';
 const error = () => errorMessage;
 
@@ -71,15 +77,17 @@ const validateHashtags = (value) => {
   });
 };
 
-const validateComment = (value) => {
-  return value.length <= MAX_COMMENT_LENGTH;
-};
+const validateComment = (value) => value.length <= MAX_COMMENT_LENGTH;
 
 const onPhotoEditorResetButtonClick = () => closePhotoEditor();
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    if (document.querySelector('.error')) {
+      evt.stopPropagation();
+      return;
+    }
     if (document.activeElement === hashtagInput || document.activeElement === commentInput) {
       evt.stopPropagation();
     } else {
@@ -89,6 +97,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 export function closePhotoEditor() {
+  pristine.reset();
   uploadForm.reset();
   photoEditorForm.classList.add('hidden');
   pageBody.classList.remove('modal-open');
@@ -114,12 +123,6 @@ export const initUploadModal = () => {
     document.addEventListener('keydown', onDocumentKeydown);
   });
 };
-
-const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error',
-});
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();

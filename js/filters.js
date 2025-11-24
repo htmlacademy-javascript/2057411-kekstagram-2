@@ -10,14 +10,14 @@ const MAX_PICTURE_COUNT = 10;
 const DEBOUNCE_DELAY = 500;
 
 const FILTER = {
-default: 'filter-default',
-random: 'filter-random',
-discussed: 'filter-discussed'
+  default: 'filter-default',
+  random: 'filter-random',
+  discussed: 'filter-discussed'
 };
 
 const SORTFUNC = {
-random: () => 0.5 - Math.random(),
-discussed: (a,b) => b.comments.length - a.comments.length,
+  random: () => 0.5 - Math.random(),
+  discussed: (a, b) => b.comments.length - a.comments.length,
 };
 
 const debouncedRender = debounce((data) => {
@@ -50,23 +50,23 @@ function onFilterChange(evt) {
 }
 
 function applyFilter() {
-let filteredPictures = [];
-if (currentFilter === FILTER.default) {
-filteredPictures = pictures;
-}
-if (currentFilter === FILTER.random) {
-filteredPictures = pictures.toSorted(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
-}
-if (currentFilter === FILTER.discussed) {
-filteredPictures = pictures.toSorted(SORTFUNC.discussed).slice(0, MAX_PICTURE_COUNT);
-}
-debouncedRender(filteredPictures);
+  let filteredPictures = [];
+  if (currentFilter === FILTER.default) {
+    filteredPictures = pictures;
+  }
+  if (currentFilter === FILTER.random) {
+    filteredPictures = pictures.toSorted(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
+  }
+  if (currentFilter === FILTER.discussed) {
+    filteredPictures = pictures.toSorted(SORTFUNC.discussed).slice(0, MAX_PICTURE_COUNT);
+  }
+  debouncedRender(filteredPictures);
 }
 
 function configFilter(picturesData) {
-filterElement.classList.remove('img-filters--inactive');
-filterElement.addEventListener('click', onFilterChange);
-pictures = picturesData;
+  filterElement.classList.remove('img-filters--inactive');
+  filterElement.addEventListener('click', onFilterChange);
+  pictures = picturesData;
 }
 
 export { configFilter };

@@ -42,7 +42,3 @@ export const showDataErrorMessage = () => {
     }
   }, ERROR_MESSAGE_TIMEOUT);
 };
-
-getData()
-  .then((photos) => renderThumbnails(photos))
-  .catch(() => showDataErrorMessage());

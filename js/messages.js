@@ -7,20 +7,23 @@ const showSuccessMessage = () => {
   const template = document.querySelector('#success').content.cloneNode(true);
   const successElement = template.querySelector('.success');
 
-  const close = () => {
+  function close() {
     successElement.remove();
     document.removeEventListener('keydown', onEsc);
     closePhotoEditor();
-  };
+  }
 
-  const onEsc = (evt) => {
+  function onEsc(evt) {
     if (isEscapeKey(evt)) {
       close();
     }
-  };
+  }
 
   successElement.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('success') || evt.target.classList.contains('success__button')) {
+    if (
+      evt.target.classList.contains('success') ||
+      evt.target.classList.contains('success__button')
+    ) {
       close();
     }
   });
@@ -33,20 +36,23 @@ const showErrorMessage = () => {
   const template = document.querySelector('#error').content.cloneNode(true);
   const errorElement = template.querySelector('.error');
 
-  const close = () => {
+  function close() {
     errorElement.remove();
     document.removeEventListener('keydown', onEsc);
-    closePhotoEditor();
-  };
+  }
 
-  const onEsc = (evt) => {
+  function onEsc(evt) {
     if (isEscapeKey(evt)) {
+      evt.stopPropagation();
       close();
     }
-  };
+  }
 
   errorElement.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('error') || evt.target.classList.contains('error__button')) {
+    if (
+      evt.target.classList.contains('error') ||
+      evt.target.classList.contains('error__button')
+    ) {
       close();
     }
   });
