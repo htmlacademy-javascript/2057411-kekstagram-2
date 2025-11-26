@@ -1,4 +1,3 @@
-import { getData } from './api.js';
 import { openBigPicture } from './big-picture.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
@@ -26,6 +25,7 @@ const createThumbnail = (photo) => {
 };
 
 export const renderThumbnails = (photos) => {
+  container.querySelectorAll('a.picture').forEach((item) => item.remove());
   const fragment = document.createDocumentFragment();
   photos.forEach((photo) => fragment.appendChild(createThumbnail(photo)));
   container.appendChild(fragment);

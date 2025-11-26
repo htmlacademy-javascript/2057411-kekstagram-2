@@ -7,7 +7,6 @@ const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 const MAX_PICTURE_COUNT = 10;
-const DEBOUNCE_DELAY = 500;
 
 const FILTER = {
   default: 'filter-default',
@@ -20,12 +19,7 @@ const SORTFUNC = {
   discussed: (a, b) => b.comments.length - a.comments.length,
 };
 
-const debouncedRender = debounce((data) => {
-  const container = document.querySelector('.pictures');
-  container.querySelectorAll('a.picture').forEach((item) => item.remove());
-  renderThumbnails(data);
-}, DEBOUNCE_DELAY);
-
+const debouncedRender = debounce(renderThumbnails);
 
 function onFilterChange(evt) {
   const targetButton = evt.target;
