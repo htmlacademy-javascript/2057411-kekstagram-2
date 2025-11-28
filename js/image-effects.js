@@ -138,4 +138,11 @@ const onEffectChange = (evt) => {
   }
 };
 
-export { onSmallerClick, onBiggerClick, onEffectChange };
+const resetEffects = () => {
+  effectLevel.classList.add('hidden');
+  currentScale = SCALE_MAX;
+  scaleValueInput.value = `${currentScale}%`;
+  imagePreview?.removeAttribute('style');
+};
+
+export { onSmallerClick, onBiggerClick, onEffectChange, resetEffects };

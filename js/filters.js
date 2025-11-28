@@ -7,6 +7,7 @@ const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 const MAX_PICTURE_COUNT = 10;
+const DISCUSSED_COUNT = 25;
 
 const FILTER = {
   default: 'filter-default',
@@ -52,7 +53,7 @@ function applyFilter() {
     filteredPictures = pictures.toSorted(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
   }
   if (currentFilter === FILTER.discussed) {
-    filteredPictures = pictures.toSorted(SORTFUNC.discussed).slice(0, MAX_PICTURE_COUNT);
+    filteredPictures = pictures.toSorted(SORTFUNC.discussed).slice(0, DISCUSSED_COUNT);
   }
   debouncedRender(filteredPictures);
 }
