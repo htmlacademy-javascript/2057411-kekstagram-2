@@ -9,11 +9,11 @@ const showSuccessMessage = () => {
 
   function close() {
     successElement.remove();
-    document.removeEventListener('keydown', onEsc);
+    document.removeEventListener('keydown', onDocumentSuccessKeydown);
     closePhotoEditor();
   }
 
-  function onEsc(evt) {
+  function onDocumentSuccessKeydown(evt) {
     if (isEscapeKey(evt)) {
       close();
     }
@@ -28,7 +28,7 @@ const showSuccessMessage = () => {
     }
   });
 
-  document.addEventListener('keydown', onEsc);
+  document.addEventListener('keydown', onDocumentSuccessKeydown);
   body.appendChild(successElement);
 };
 
@@ -38,10 +38,10 @@ const showErrorMessage = () => {
 
   function close() {
     errorElement.remove();
-    document.removeEventListener('keydown', onEsc);
+    document.removeEventListener('keydown', onDocumentErrorKeydown);
   }
 
-  function onEsc(evt) {
+  function onDocumentErrorKeydown(evt) {
     if (isEscapeKey(evt)) {
       evt.stopPropagation();
       close();
@@ -57,7 +57,7 @@ const showErrorMessage = () => {
     }
   });
 
-  document.addEventListener('keydown', onEsc);
+  document.addEventListener('keydown', onDocumentErrorKeydown);
   body.appendChild(errorElement);
 };
 

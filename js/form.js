@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { onSmallerClick, onBiggerClick, onEffectChange } from './image-effects.js';
+import { onSmallerClick, onBiggerClick, onEffectChange, resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 
@@ -99,6 +99,7 @@ const onDocumentKeydown = (evt) => {
 export function closePhotoEditor() {
   pristine.reset();
   uploadForm.reset();
+  resetEffects();
   photoEditorForm.classList.add('hidden');
   pageBody.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
